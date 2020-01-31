@@ -14,14 +14,15 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Fredoka+One&display=swap");
 .content {
-  background-color: #333;
+  background-color: rgb(29, 29, 29);
   color: #fff;
   display: flex;
   justify-content: center;
   height: 100px;
   align-items: center;
   font-size: 30px;
-  font-weight: 50px;
+  font-family: "Fredoka One", cursive;
 }
 </style>

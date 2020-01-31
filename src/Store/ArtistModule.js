@@ -4,7 +4,8 @@ const state = {
     items: [],
     songs: [],
     querySong: '',
-    currentSong: ''
+    currentArtist: null,
+    currentSong: null
 };
 
 const getters = {
@@ -26,8 +27,14 @@ const mutations = {
     setCurrentSong(state, song) {
         state.currentSong = song
     },
+    setCurrentArtist(state, artist) {
+        state.currentArtist = artist
+    },
     cleanCurrentSong(state) {
-        state.currentSong = ''
+        state.currentSong = null
+    },
+    cleanSearchSong(state) {
+        state.querySong = ''
     }
 };
 
@@ -38,7 +45,7 @@ const actions = {
     },
     async getSongs({ commit }, artistId) {
         let songs = await artistService.getSongs(artistId)
-        commit('setSongs', songs.tracks)
+        commit('setSongs', songs.tracks.filter(song => song.preview_url))
     },
     setSearchFilter({ commit }, query) {
         commit('setSearchFilter', query)
@@ -46,8 +53,14 @@ const actions = {
     setCurrentSong({ commit }, song) {
         commit('setCurrentSong', song)
     },
+    setCurrentArtist({ commit }, artist) {
+        commit('setCurrentArtist', artist)
+    },
     cleanCurrentSong({ commit }) {
         commit('cleanCurrentSong')
+    },
+    cleanSearchSong({ commit }) {
+        commit('cleanSearchSong')
     }
 }
 

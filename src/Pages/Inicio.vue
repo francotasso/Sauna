@@ -7,9 +7,12 @@
         <div
           v-for="artist in item.artists"
           :key="artist.id"
-          @click="exploreSongs(artist.id)"
+          @click="exploreSongs(artist, item)"
           class="artist-box"
-        >{{artist.name}}</div>
+        >
+          <div>{{ artist.name }}</div>
+          <img :src="item.images[2].url" />
+        </div>
       </div>
     </div>
   </div>
@@ -31,13 +34,14 @@ export default {
     Navbar
   },
   methods: {
-    ...mapActions("artist", ["getItems"]),
+    ...mapActions("artist", ["getItems", "setCurrentArtist"]),
     //método para pasar a la página de canciones una vez seleccionado el artista
-    exploreSongs(id) {
-      this.$router.push({ name: "Artist", params: { id: id } });
+    exploreSongs(artist, item) {
+      this.setCurrentArtist(item);
+      this.$router.push({ name: "Artist", params: { id: artist.id } });
     }
   },
-  async created() {
+  created() {
     //obtiene los items cuando se crea el componente
     this.getItems();
   }
@@ -55,21 +59,43 @@ export default {
 }
 .title {
   font-family: "Sigmar One", cursive;
-  color: #333;
+  color: rgb(235, 229, 229);
   margin-bottom: 1.5rem;
 }
 .artist-box {
   font-family: "Josefin Sans", sans-serif;
-  height: 50px;
-  width: 300px;
-  background-color: rgb(230, 185, 132);
+  height: 64px;
+  width: 780px;
+  background-color: rgb(39, 38, 38);
+  color: #fff;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 1rem;
+  padding-left: 2rem;
 }
 .artist-box:hover {
   cursor: pointer;
-  background-color: rgb(206, 157, 102);
+  background-color: rgb(31, 30, 29);
+}
+@media screen and (max-width: 800px) {
+  .artist-box {
+    width: 600px;
+  }
+}
+@media screen and (max-width: 650px) {
+  .artist-box {
+    width: 500px;
+  }
+}
+@media screen and (max-width: 530px) {
+  .artist-box {
+    width: 450px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .artist-box {
+    width: 400px;
+  }
 }
 </style>

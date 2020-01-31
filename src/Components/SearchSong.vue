@@ -51,4 +51,9 @@ export default {
   outline: none;
   outline-width: 0;
 }
+@media screen and (max-width: 450px) {
+  .search-box {
+    width: 350px;
+  }
+}
 </style>
