@@ -2,14 +2,16 @@
   <div class="content">
     <div v-if="currentSong" class="content__player">
       <div class="title-song">{{ currentSong.name }}</div>
-      <div>
+      <div class="audio-player">
         <audio :src="currentSong.preview_url" controls></audio>
       </div>
     </div>
     <div v-else class="content__player">
-      <div class="title-song">Seleccione una canción</div>
+      <div class="title-song">
+        <span>Seleccione una canción</span>
+      </div>
       <div class="audio-player">
-        <audio controls></audio>
+        <audio controls class="audio"></audio>
       </div>
     </div>
   </div>
@@ -24,11 +26,6 @@ export default {
   },
   computed: {
     ...mapState("artist", ["currentSong"])
-  },
-  filters: {
-    noEmpty(song) {
-      return song != null ? song.name : "Seleccione una canción";
-    }
   }
 };
 </script>
@@ -38,21 +35,27 @@ export default {
   color: #333;
   display: flex;
   justify-content: center;
-  height: 100px;
   align-items: center;
   font-size: 30px;
+  width: 100%;
 }
 .content__player {
   background-color: rgb(32, 30, 30);
   display: flex;
   justify-content: space-around;
-  width: 800px;
-  padding: 1rem;
+  width: 100%;
   color: #fff;
-  border-radius: 3rem;
 }
 .title-song {
-  padding-top: 0.5rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.audio-player {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 @media screen and (max-width: 550px) {
   .content__player {
@@ -60,7 +63,6 @@ export default {
     width: 100%;
   }
   .title-song {
-    margin-bottom: 1rem;
     text-align: center;
     font-size: 18px;
   }

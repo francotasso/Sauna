@@ -10,7 +10,7 @@
           @click="exploreSongs(artist, item)"
           class="artist-box"
         >
-          <div>{{ artist.name }}</div>
+          <div class="artist-name">{{ artist.name }}</div>
           <img :src="item.images[2].url" />
         </div>
       </div>
@@ -72,11 +72,13 @@ export default {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
-  padding-left: 2rem;
 }
 .artist-box:hover {
   cursor: pointer;
   background-color: rgb(31, 30, 29);
+}
+.artist-name {
+  margin-left: 1rem;
 }
 @media screen and (max-width: 800px) {
   .artist-box {

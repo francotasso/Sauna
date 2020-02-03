@@ -2,7 +2,7 @@
   <div>
     <Navbar />
     <SearchSong v-if="songsFiltered.length > 0 || querySong != ''" />
-    <div class="content">
+    <div class="content" :class="songsFiltered.length == 0 ? 'margin-info' : ''">
       <div class="artist-content">
         <img
           :src="currentArtist.images[1].url"
@@ -10,44 +10,31 @@
           :height="currentArtist.images[1].height"
         />
         <div class="artist-info">
-          <p class="margin-info">
-            Artista: {{ currentArtist.artists[0].name }}
-          </p>
-          <p class="margin-info">
-            Último lanzamiento: {{ currentArtist.release_date | switchFormat }}
-          </p>
-          <p class="margin-info">
-            Total de canciones: {{ songsFiltered.length }}
-          </p>
+          <p class="margin-info">Artista: {{ currentArtist.artists[0].name }}</p>
+          <p class="margin-info">Total de canciones: {{ songsFiltered.length }}</p>
+          <p class="margin-info">Último lanzamiento: {{ currentArtist.release_date | switchFormat }}</p>
           <p class="margin-info">
             Disponible a la venta en
             {{ currentArtist.available_markets.length }} países
           </p>
         </div>
       </div>
-      <div class="songs-content">
-        <div
-          v-for="(song, index) in songsFiltered"
-          :key="index"
-          class="song-content"
-        >
-          <div class="song-box" @click="setCurrentSong(song)">
-            <div>{{ song.name }}</div>
-            <div>
-              {{ song.album.release_date | switchFormat }}
+      <div class="side-content">
+        <div class="songs-content">
+          <div v-for="(song, index) in songsFiltered" :key="index" class="song-content">
+            <div class="song-box" @click="setCurrentSong(song)">
+              <div class="song__name">{{ song.name }}</div>
+              <div class="song__release-date">{{ song.album.release_date | switchFormat }}</div>
             </div>
           </div>
         </div>
+        <div v-if="songsFiltered.length > 0" :class="songsFiltered.length < 6 ? 'sticky' : ''">
+          <PlayerMusic />
+        </div>
+        <div v-if="songsFiltered.length == 0" class="no-available-songs">
+          <p>No hay canciones disponibles</p>
+        </div>
       </div>
-    </div>
-    <div
-      v-if="songsFiltered.length > 0"
-      :class="songsFiltered.length < 11 ? 'sticky' : ''"
-    >
-      <PlayerMusic />
-    </div>
-    <div v-if="songsFiltered.length == 0" class="no-available-songs">
-      <p>No hay canciones disponibles</p>
     </div>
   </div>
 </template>
@@ -107,6 +94,10 @@ export default {
   display: flex;
   justify-content: center;
 }
+.side-content {
+  display: flex;
+  flex-direction: column;
+}
 .artist-content {
   display: flex;
   color: #fff;
@@ -116,6 +107,24 @@ export default {
 .artist-info {
   padding: 1.5rem 1rem;
 }
+.songs-content {
+  overflow-y: scroll;
+  max-height: 400px;
+}
+.songs-content::-webkit-scrollbar {
+  width: 8px;
+}
+.songs-content::-webkit-scrollbar-thumb {
+  background-color: rgb(31, 31, 31);
+  border-radius: 4px;
+}
+.songs-content::-webkit-scrollbar-track {
+  border-radius: 4px;
+}
+.songs-content::-webkit-scrollbar-track:hover,
+.songs-content::-webkit-scrollbar-track:active {
+  background-color: rgb(44, 43, 43);
+}
 .song-content {
   display: flex;
   flex-direction: column;
@@ -124,18 +133,29 @@ export default {
 }
 .song-box {
   font-family: "Josefin Sans", sans-serif;
-  height: 25px;
-  width: 780px;
+  width: 815px;
   background-color: rgb(39, 38, 38);
   color: #fff;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 2rem;
 }
 .song-box:hover {
   cursor: pointer;
   background-color: rgb(31, 30, 29);
+}
+.song__name {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.song__release-date {
+  margin-right: 1rem;
+  margin-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .sticky {
   width: 100%;
@@ -184,18 +204,13 @@ export default {
   .sticky {
     margin-top: 1rem;
     position: relative;
-    margin-left: 1.5rem;
   }
   .song-box {
     width: 400px;
-    justify-content: space-around;
   }
   .artist-content {
     flex-direction: column;
     align-items: center;
-  }
-  .sticky {
-    right: 9%;
   }
 }
 </style>
