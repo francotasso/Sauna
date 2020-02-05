@@ -1,25 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import App from '../App.vue'
-import Inicio from '../Pages/Inicio.vue'
+import Artists from '../Pages/Artists.vue'
 import Artist from '../Pages/Artist.vue'
 
 Vue.use(Router)
 
 export const router = new Router({
     mode: 'history',
-    redirect: '/inicio',
     routes: [
         {
             path: '/',
             name: 'App',
             component: App,
-            redirect: { name: 'Inicio' }
+            redirect: { name: 'Artists' }
         },
         {
-            path: '/inicio',
-            name: 'Inicio',
-            component: Inicio
+            path: '/artists',
+            name: 'Artists',
+            component: Artists
         },
         {
             path: '/artist/:id',

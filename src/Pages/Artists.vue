@@ -41,32 +41,33 @@ export default {
       this.$router.push({ name: "Artist", params: { id: artist.id } });
     }
   },
-  created() {
+  async created() {
     //obtiene los items cuando se crea el componente
-    this.getItems();
+    await this.getItems();
+    console.log(this.items);
   }
 };
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css?family=Sigmar+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Questrial&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap");
 .artists-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 3rem;
 }
 .title {
-  font-family: "Sigmar One", cursive;
+  font-family: "Questrial", sans-serif;
   color: rgb(235, 229, 229);
+  margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 }
 .artist-box {
   font-family: "Josefin Sans", sans-serif;
   height: 64px;
   width: 780px;
-  background-color: rgb(39, 38, 38);
+  background-color: rgb(26, 26, 26);
   color: #fff;
   display: flex;
   align-items: center;
@@ -75,7 +76,7 @@ export default {
 }
 .artist-box:hover {
   cursor: pointer;
-  background-color: rgb(31, 30, 29);
+  background-color: #1db954;
 }
 .artist-name {
   margin-left: 1rem;

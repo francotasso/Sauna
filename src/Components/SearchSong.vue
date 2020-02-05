@@ -32,6 +32,7 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css?family=Courgette&display=swap");
 .content {
   display: flex;
   justify-content: center;
@@ -45,6 +46,12 @@ export default {
   height: 30px;
   padding-left: 1rem;
   padding-right: 1rem;
+  background-color: rgb(27, 26, 26);
+  color: #fff;
+  font-family: "Courgette", cursive;
+}
+.search-box::placeholder {
+  color: rgb(211, 216, 210);
 }
 .search-box:focus {
   box-shadow: none;

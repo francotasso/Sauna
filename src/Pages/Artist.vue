@@ -10,13 +10,18 @@
           :height="currentArtist.images[1].height"
         />
         <div class="artist-info">
-          <p class="margin-info">Artista: {{ currentArtist.artists[0].name }}</p>
-          <p class="margin-info">Total de canciones: {{ songsFiltered.length }}</p>
-          <p class="margin-info">Último lanzamiento: {{ currentArtist.release_date | switchFormat }}</p>
-          <p class="margin-info">
+          <hr />
+          <span class="margin-x">Artista: {{ currentArtist.artists[0].name }}</span>
+          <hr />
+          <span class="margin-x">Total de canciones: {{ songsFiltered.length }}</span>
+          <hr />
+          <span class="margin-x">Último lanzamiento: {{ currentArtist.release_date | switchFormat }}</span>
+          <hr />
+          <span class="margin-x">
             Disponible a la venta en
             {{ currentArtist.available_markets.length }} países
-          </p>
+          </span>
+          <hr />
         </div>
       </div>
       <div class="side-content">
@@ -28,8 +33,8 @@
             </div>
           </div>
         </div>
-        <div v-if="songsFiltered.length > 0" :class="songsFiltered.length < 6 ? 'sticky' : ''">
-          <PlayerMusic />
+        <div v-if="songsFiltered.length > 0">
+          <MusicPlayer />
         </div>
         <div v-if="songsFiltered.length == 0" class="no-available-songs">
           <p>No hay canciones disponibles</p>
@@ -43,7 +48,7 @@
 import { mapState, mapGetters, mapActions } from "vuex";
 import Navbar from "../Components/Navbar";
 import SearchSong from "../Components/SearchSong";
-import PlayerMusic from "../Components/PlayerMusic";
+import MusicPlayer from "../Components/MusicPlayer";
 export default {
   name: "Artist",
   props: ["id"],
@@ -53,7 +58,7 @@ export default {
   components: {
     Navbar,
     SearchSong,
-    PlayerMusic
+    MusicPlayer
   },
   computed: {
     ...mapState("artist", ["querySong", "currentArtist"]),
@@ -105,14 +110,21 @@ export default {
   font-family: "Josefin Sans", sans-serif;
 }
 .artist-info {
-  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 250px;
+}
+.margin-x {
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 .songs-content {
   overflow-y: scroll;
-  max-height: 400px;
+  height: 450px;
 }
 .songs-content::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 .songs-content::-webkit-scrollbar-thumb {
   background-color: rgb(31, 31, 31);
@@ -134,7 +146,7 @@ export default {
 .song-box {
   font-family: "Josefin Sans", sans-serif;
   width: 815px;
-  background-color: rgb(39, 38, 38);
+  background-color: rgb(26, 26, 26);
   color: #fff;
   display: flex;
   flex-wrap: wrap;
@@ -169,10 +181,6 @@ export default {
   font-family: "Josefin Sans", sans-serif;
   margin: 2rem 4rem;
   color: #fff;
-}
-.margin-info {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
 }
 @media screen and (max-width: 1200px) {
   .content {

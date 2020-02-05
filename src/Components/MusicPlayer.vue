@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <div v-if="currentSong" class="content__player">
-      <div class="title-song">{{ currentSong.name }}</div>
+      <div class="title-song">{{currentArtist.artists[0].name}} - {{ currentSong.name }}</div>
       <div class="audio-player">
         <audio :src="currentSong.preview_url" controls></audio>
       </div>
@@ -25,14 +25,13 @@ export default {
     return {};
   },
   computed: {
-    ...mapState("artist", ["currentSong"])
+    ...mapState("artist", ["currentSong", "currentArtist"])
   }
 };
 </script>
 
 <style scoped>
 .content {
-  color: #333;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,7 +39,7 @@ export default {
   width: 100%;
 }
 .content__player {
-  background-color: rgb(32, 30, 30);
+  background-color: #191414;
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -52,6 +51,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 22px;
 }
 .audio-player {
   margin-top: 0.75rem;
