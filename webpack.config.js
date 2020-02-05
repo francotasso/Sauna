@@ -1,12 +1,15 @@
 var path = require('path')
 var webpack = require('webpack')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    publicPath: process.env.ASSET_PATH || '/',
+    filename: 'main/build.js'
   },
   module: {
     rules: [
@@ -103,6 +106,22 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
-    })
+    }),
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    }),
+    new CopyWebpackPlugin([
+      { from: './index.css', to: 'index.css' }
+    ]),
+    new UglifyJsPlugin({
+      "uglifyOptions":
+      {
+        compress: {
+          warnings: false
+        },
+        sourceMap: true
+      }
+    }
+    )
   ])
 }
